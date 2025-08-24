@@ -99,16 +99,16 @@ export default function AnalyticsPage() {
         <Sidebar user={user} onLogout={handleLogout} />
 
         {/* Main Content */}
-        <div className="flex-1 lg:ml-64">
+        <div className="flex-1  min-w-0">
           {/* Header */}
           <header className="bg-white shadow-sm border-b border-gray-200">
-            <div className="px-6 py-4">
-              <div className="flex items-center justify-between">
+            <div className="px-4 sm:px-6 py-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900">Analytics & Insights</h1>
-                  <p className="text-gray-600">Business performance and customer insights</p>
+                  <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Analytics & Insights</h1>
+                  <p className="text-sm sm:text-base text-gray-600">Business performance and customer insights</p>
                 </div>
-                <div className="flex items-center space-x-4">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                   <select
                     value={timeRange}
                     onChange={(e) => setTimeRange(e.target.value)}
@@ -121,7 +121,7 @@ export default function AnalyticsPage() {
                   <button
                     onClick={loadAnalytics}
                     disabled={isLoading}
-                    className="btn-secondary flex items-center space-x-2"
+                    className="btn-secondary flex items-center justify-center sm:justify-start space-x-2 w-full sm:w-auto"
                   >
                     <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
                     <span>Refresh</span>
@@ -132,7 +132,7 @@ export default function AnalyticsPage() {
           </header>
 
           {/* Main Content Area */}
-          <main className="p-6">
+          <main className="p-4 sm:p-6">
             {isLoading ? (
               <div className="text-center py-12">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>

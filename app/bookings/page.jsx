@@ -113,18 +113,18 @@ export default function BookingsPage() {
     <AuthMiddleware>
       <div className="min-h-screen bg-gray-50 flex">
         <Sidebar user={user} onLogout={handleLogout} />
-        <div className="flex-1 lg:ml-64">
+        <div className="flex-1  min-w-0">
           <header className="bg-white shadow-sm border-b border-gray-200">
-            <div className="px-6 py-4">
-              <div className="flex items-center justify-between">
+            <div className="px-4 sm:px-6 py-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900">Bookings Management</h1>
-                  <p className="text-gray-600">Manage all customer bookings</p>
+                  <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Bookings Management</h1>
+                  <p className="text-sm sm:text-base text-gray-600">Manage all customer bookings</p>
                 </div>
                 <button
                   onClick={loadAllBookings}
                   disabled={isLoading}
-                  className="btn-secondary flex items-center space-x-2"
+                  className="btn-secondary flex items-center justify-center sm:justify-start space-x-2 w-full sm:w-auto"
                 >
                   <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
                   <span>Refresh</span>
@@ -132,7 +132,7 @@ export default function BookingsPage() {
               </div>
             </div>
           </header>
-          <main className="p-6">
+          <main className="p-4 sm:p-6">
             {/* Stats Overview */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
               <div className="card p-4">

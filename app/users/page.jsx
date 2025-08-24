@@ -127,18 +127,18 @@ export default function UsersPage() {
     <AuthMiddleware>
       <div className="min-h-screen bg-gray-50 flex">
         <Sidebar user={user} onLogout={handleLogout} />
-        <div className="flex-1 lg:ml-64">
+        <div className="flex-1  min-w-0">
           <header className="bg-white shadow-sm border-b border-gray-200">
-            <div className="px-6 py-4">
-              <div className="flex items-center justify-between">
+            <div className="px-4 sm:px-6 py-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900">User Management</h1>
-                  <p className="text-gray-600">Manage all registered users</p>
+                  <h1 className="text-xl sm:text-2xl font-bold text-gray-900">User Management</h1>
+                  <p className="text-sm sm:text-base text-gray-600">Manage all registered users</p>
                 </div>
                 <button
                   onClick={loadUsers}
                   disabled={isLoading}
-                  className="btn-secondary flex items-center space-x-2"
+                  className="btn-secondary flex items-center justify-center sm:justify-start space-x-2 w-full sm:w-auto"
                 >
                   <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
                   <span>Refresh</span>
@@ -146,7 +146,7 @@ export default function UsersPage() {
               </div>
             </div>
           </header>
-          <main className="p-6">
+          <main className="p-4 sm:p-6">
             {/* Search and Filter Section */}
             <div className="card p-6 mb-8">
               <div className="flex flex-col md:flex-row gap-4">

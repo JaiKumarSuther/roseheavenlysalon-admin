@@ -115,23 +115,23 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-rose hover:shadow-large;
+    @apply bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-semibold py-2 sm:py-3 px-4 sm:px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-rose hover:shadow-large text-sm sm:text-base;
   }
   
   .btn-secondary {
-    @apply bg-white text-gray-600 border-2 border-gray-200 hover:border-gray-300 font-semibold py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-soft hover:shadow-medium;
+    @apply bg-white text-gray-600 border-2 border-gray-200 hover:border-gray-300 font-semibold py-2 sm:py-3 px-4 sm:px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-soft hover:shadow-medium text-sm sm:text-base;
   }
   
   .card {
-    @apply bg-white rounded-2xl shadow-soft hover:shadow-medium transition-all duration-300 transform hover:-translate-y-1;
+    @apply bg-white rounded-xl sm:rounded-2xl shadow-soft hover:shadow-medium transition-all duration-300 transform hover:-translate-y-1;
   }
   
   .input-field {
-    @apply w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm;
+    @apply w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all duration-300 bg-white/80 backdrop-blur-sm text-sm sm:text-base;
   }
   
   .section-padding {
-    @apply py-16 md:py-24;
+    @apply py-8 sm:py-16 md:py-24;
   }
   
   .container-custom {
@@ -205,6 +205,39 @@
 
   .bg-header-bg-3::before {
     background-image: url('/images/header-bg-3.png');
+  }
+
+  /* Responsive utilities */
+  .responsive-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-3 sm:gap-4;
+  }
+
+  .responsive-flex {
+    @apply flex flex-col sm:flex-row;
+  }
+
+  .responsive-text {
+    @apply text-xs sm:text-sm md:text-base lg:text-lg;
+  }
+
+  .responsive-padding {
+    @apply p-3 sm:p-4 md:p-6;
+  }
+
+  .responsive-margin {
+    @apply m-2 sm:m-3 md:m-4;
+  }
+
+  .responsive-gap {
+    @apply gap-2 sm:gap-3 md:gap-4;
+  }
+
+  .responsive-icon {
+    @apply h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5;
+  }
+
+  .responsive-button {
+    @apply text-xs sm:text-sm font-medium py-2 px-2 sm:px-3 md:px-4;
   }
 
   @keyframes float {
@@ -380,3 +413,34 @@
 .animate-fade-in-up:nth-child(4) { animation-delay: 0.4s; }
 .animate-fade-in-up:nth-child(5) { animation-delay: 0.5s; }
 .animate-fade-in-up:nth-child(6) { animation-delay: 0.6s; }
+
+/* Mobile-first responsive breakpoints */
+@media (max-width: 640px) {
+  .mobile-hidden {
+    display: none;
+  }
+  
+  .mobile-full {
+    width: 100%;
+  }
+  
+  .mobile-stack {
+    flex-direction: column;
+  }
+  
+  .mobile-center {
+    text-align: center;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-hidden {
+    display: none;
+  }
+}
+
+@media (min-width: 1025px) {
+  .desktop-hidden {
+    display: none;
+  }
+}

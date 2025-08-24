@@ -130,11 +130,11 @@ export default function DashboardPage() {
       <div className="min-h-screen bg-gray-50 flex">
         <Sidebar user={user} onLogout={handleLogout} />
         
-        {/* Main content area with proper responsive spacing */}
-        <div className="flex-1 lg:ml-64 min-w-0">
-          {/* Header with mobile padding */}
+        {/* Main content area with no gap */}
+        <div className="flex-1 min-w-0">
+          {/* Header with no left padding on desktop */}
           <header className="bg-white shadow-sm border-b border-gray-200">
-            <div className="px-4 sm:px-6 py-4 lg:pl-6">
+            <div className="px-4 sm:px-6 py-4">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                   <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Dashboard</h1>
@@ -152,8 +152,8 @@ export default function DashboardPage() {
             </div>
           </header>
 
-          {/* Main content with responsive padding */}
-          <main className="p-4 sm:p-6 lg:pl-6">
+          {/* Main content with no left padding on desktop */}
+          <main className="p-4 sm:p-6">
             {/* Dashboard Stats */}
             <DashboardStats stats={stats} isLoading={isLoading} />
 

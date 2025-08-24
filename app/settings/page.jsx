@@ -138,21 +138,21 @@ export default function SettingsPage() {
         <Sidebar user={user} onLogout={handleLogout} />
 
         {/* Main Content */}
-        <div className="flex-1 lg:ml-64">
+        <div className="flex-1 lg:ml-64 min-w-0">
           {/* Header */}
           <header className="bg-white shadow-sm border-b border-gray-200">
-            <div className="px-6 py-4">
-              <div className="flex items-center justify-between">
+            <div className="px-4 sm:px-6 py-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-                  <p className="text-gray-600">Manage your account and preferences</p>
+                  <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Settings</h1>
+                  <p className="text-sm sm:text-base text-gray-600">Manage your account and preferences</p>
                 </div>
               </div>
             </div>
           </header>
 
           {/* Main Content Area */}
-          <main className="p-6">
+          <main className="p-4 sm:p-6">
             <div className="max-w-4xl mx-auto">
               {/* Tab Navigation */}
               <div className="bg-white rounded-lg shadow-sm mb-6">
