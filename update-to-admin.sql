@@ -9,3 +9,4 @@ WHERE email = 'admin@roseheavenlysalon.com';
 -- Verify the update
 SELECT id, username, email, user_type, code FROM users WHERE email = 'admin@roseheavenlysalon.com';
 
+

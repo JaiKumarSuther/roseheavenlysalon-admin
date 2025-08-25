@@ -5,7 +5,6 @@ import { useRouter, usePathname } from 'next/navigation';
 import { 
   Calendar, 
   Users, 
-  Settings, 
   BarChart3, 
   LogOut,
   Menu,
@@ -40,11 +39,6 @@ export default function Sidebar({ user, onLogout }) {
       name: 'Analytics',
       icon: BarChart3,
       href: '/analytics'
-    },
-    {
-      name: 'Settings',
-      icon: Settings,
-      href: '/settings'
     }
   ];
 

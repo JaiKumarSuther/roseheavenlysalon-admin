@@ -9,7 +9,6 @@ import {
   Calendar as CalendarIcon,
   CheckCircle, 
   XCircle, 
-  RefreshCw,
   User,
   MessageSquare
 } from 'lucide-react';
@@ -33,26 +32,34 @@ export default function BookingCard({ booking, onStatusUpdate }) {
     }
   };
 
-  const getStatusColor = (remarks) => {
-    if (!remarks) return 'border-l-4 border-blue-500';
-    if (remarks.toLowerCase().includes('done')) return 'border-l-4 border-green-500';
-    if (remarks.toLowerCase().includes('cancelled')) return 'border-l-4 border-red-500';
-    if (remarks.toLowerCase().includes('rescheduled')) return 'border-l-4 border-yellow-500';
-    return 'border-l-4 border-blue-500';
+  const getStatusColor = (booking) => {
+    // Check status field first, then fall back to remarks
+    if (booking.status === 0) return 'border-l-4 border-red-500';
+    if (booking.status === 2) return 'border-l-4 border-green-500';
+    
+    // Fall back to remarks parsing
+    if (!booking.remarks) return 'border-l-4 border-yellow-500';
+    if (booking.remarks.toLowerCase().includes('done')) return 'border-l-4 border-green-500';
+    if (booking.remarks.toLowerCase().includes('cancelled')) return 'border-l-4 border-red-500';
+    return 'border-l-4 border-yellow-500';
   };
 
-  const getStatusBadge = (remarks) => {
-    if (!remarks) return { text: 'Pending', color: 'bg-blue-100 text-blue-800' };
-    if (remarks.toLowerCase().includes('done')) return { text: 'Completed', color: 'bg-green-100 text-green-800' };
-    if (remarks.toLowerCase().includes('cancelled')) return { text: 'Cancelled', color: 'bg-red-100 text-red-800' };
-    if (remarks.toLowerCase().includes('rescheduled')) return { text: 'Rescheduled', color: 'bg-yellow-100 text-yellow-800' };
-    return { text: 'Pending', color: 'bg-blue-100 text-blue-800' };
+  const getStatusBadge = (booking) => {
+    // Check status field first, then fall back to remarks
+    if (booking.status === 0) return { text: 'Cancelled', color: 'bg-red-100 text-red-800' };
+    if (booking.status === 2) return { text: 'Completed', color: 'bg-green-100 text-green-800' };
+    
+    // Fall back to remarks parsing
+    if (!booking.remarks) return { text: 'Pending', color: 'bg-yellow-100 text-yellow-800' };
+    if (booking.remarks.toLowerCase().includes('done')) return { text: 'Completed', color: 'bg-green-100 text-green-800' };
+    if (booking.remarks.toLowerCase().includes('cancelled')) return { text: 'Cancelled', color: 'bg-red-100 text-red-800' };
+    return { text: 'Pending', color: 'bg-yellow-100 text-yellow-800' };
   };
 
-  const statusBadge = getStatusBadge(booking.remarks);
+  const statusBadge = getStatusBadge(booking);
 
   return (
-    <div className={`card p-3 sm:p-4 lg:p-6 ${getStatusColor(booking.remarks)} hover:shadow-lg transition-all duration-200`}>
+    <div className={`card p-3 sm:p-4 lg:p-6 ${getStatusColor(booking)} hover:shadow-lg transition-all duration-200`}>
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-3 mb-3 sm:mb-4">
         <div className="flex items-center space-x-2 sm:space-x-3">
@@ -135,13 +142,7 @@ export default function BookingCard({ booking, onStatusUpdate }) {
           <XCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
           <span>Cancel</span>
         </button>
-        <button
-          onClick={() => onStatusUpdate(booking.id, 'rescheduled')}
-          className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white text-xs sm:text-sm font-medium py-2 px-2 sm:px-3 rounded-lg transition-colors flex items-center justify-center space-x-1"
-        >
-          <RefreshCw className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-          <span>Reschedule</span>
-        </button>
+
       </div>
     </div>
   );
