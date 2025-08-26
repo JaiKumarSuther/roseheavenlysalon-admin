@@ -9,9 +9,9 @@ import {
   LogOut,
   Menu,
   X,
-  Home,
   UserCheck,
-  Clock
+  Clock,
+  CalendarDays
 } from 'lucide-react';
 
 export default function Sidebar({ user, onLogout }) {
@@ -21,9 +21,9 @@ export default function Sidebar({ user, onLogout }) {
 
   const menuItems = [
     {
-      name: 'Dashboard',
-      icon: Home,
-      href: '/dashboard'
+      name: 'Analytics',
+      icon: BarChart3,
+      href: '/analytics'
     },
     {
       name: 'Bookings',
@@ -31,14 +31,14 @@ export default function Sidebar({ user, onLogout }) {
       href: '/bookings'
     },
     {
+      name: 'Calendar',
+      icon: CalendarDays,
+      href: '/calendar'
+    },
+    {
       name: 'Users',
       icon: Users,
       href: '/users'
-    },
-    {
-      name: 'Analytics',
-      icon: BarChart3,
-      href: '/analytics'
     }
   ];
 
@@ -48,8 +48,8 @@ export default function Sidebar({ user, onLogout }) {
   };
 
   const isActiveRoute = (href) => {
-    if (href === '/dashboard') {
-      return pathname === '/dashboard' || pathname === '/';
+    if (href === '/analytics') {
+      return pathname === '/analytics' || pathname === '/';
     }
     return pathname === href;
   };

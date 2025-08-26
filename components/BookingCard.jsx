@@ -33,26 +33,16 @@ export default function BookingCard({ booking, onStatusUpdate }) {
   };
 
   const getStatusColor = (booking) => {
-    // Check status field first, then fall back to remarks
-    if (booking.status === 0) return 'border-l-4 border-red-500';
-    if (booking.status === 2) return 'border-l-4 border-green-500';
-    
-    // Fall back to remarks parsing
-    if (!booking.remarks) return 'border-l-4 border-yellow-500';
-    if (booking.remarks.toLowerCase().includes('done')) return 'border-l-4 border-green-500';
-    if (booking.remarks.toLowerCase().includes('cancelled')) return 'border-l-4 border-red-500';
+    if (booking.status === 'cancelled') return 'border-l-4 border-red-500';
+    if (booking.status === 'completed') return 'border-l-4 border-green-500';
+    if (booking.status === 'confirmed') return 'border-l-4 border-blue-500';
     return 'border-l-4 border-yellow-500';
   };
 
   const getStatusBadge = (booking) => {
-    // Check status field first, then fall back to remarks
-    if (booking.status === 0) return { text: 'Cancelled', color: 'bg-red-100 text-red-800' };
-    if (booking.status === 2) return { text: 'Completed', color: 'bg-green-100 text-green-800' };
-    
-    // Fall back to remarks parsing
-    if (!booking.remarks) return { text: 'Pending', color: 'bg-yellow-100 text-yellow-800' };
-    if (booking.remarks.toLowerCase().includes('done')) return { text: 'Completed', color: 'bg-green-100 text-green-800' };
-    if (booking.remarks.toLowerCase().includes('cancelled')) return { text: 'Cancelled', color: 'bg-red-100 text-red-800' };
+    if (booking.status === 'cancelled') return { text: 'Cancelled', color: 'bg-red-100 text-red-800' };
+    if (booking.status === 'completed') return { text: 'Completed', color: 'bg-green-100 text-green-800' };
+    if (booking.status === 'confirmed') return { text: 'Confirmed', color: 'bg-blue-100 text-blue-800' };
     return { text: 'Pending', color: 'bg-yellow-100 text-yellow-800' };
   };
 
@@ -126,24 +116,69 @@ export default function BookingCard({ booking, onStatusUpdate }) {
         </div>
       )}
 
-      {/* Action Buttons */}
-      <div className="flex flex-col sm:flex-row gap-2">
-        <button
-          onClick={() => onStatusUpdate(booking.id, 'done')}
-          className="flex-1 bg-green-500 hover:bg-green-600 text-white text-xs sm:text-sm font-medium py-2 px-2 sm:px-3 rounded-lg transition-colors flex items-center justify-center space-x-1"
-        >
-          <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-          <span>Done</span>
-        </button>
-        <button
-          onClick={() => onStatusUpdate(booking.id, 'cancelled')}
-          className="flex-1 bg-red-500 hover:bg-red-600 text-white text-xs sm:text-sm font-medium py-2 px-2 sm:px-3 rounded-lg transition-colors flex items-center justify-center space-x-1"
-        >
-          <XCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-          <span>Cancel</span>
-        </button>
+      {/* Action Buttons - Only show for pending bookings */}
+      {booking.status === 'pending' && (
+        <div className="flex flex-col sm:flex-row gap-2">
+          <button
+            onClick={() => onStatusUpdate(booking.id, 'confirmed')}
+            className="flex-1 bg-blue-500 hover:bg-blue-600 text-white text-xs sm:text-sm font-medium py-2 px-2 sm:px-3 rounded-lg transition-colors flex items-center justify-center space-x-1"
+          >
+            <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+            <span>Confirm</span>
+          </button>
+          <button
+            onClick={() => onStatusUpdate(booking.id, 'cancelled')}
+            className="flex-1 bg-red-500 hover:bg-red-600 text-white text-xs sm:text-sm font-medium py-2 px-2 sm:px-3 rounded-lg transition-colors flex items-center justify-center space-x-1"
+          >
+            <XCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+            <span>Cancel</span>
+          </button>
+        </div>
+      )}
 
-      </div>
+      {/* Action Buttons for confirmed bookings */}
+      {booking.status === 'confirmed' && (
+        <div className="flex flex-col sm:flex-row gap-2">
+          <button
+            onClick={() => onStatusUpdate(booking.id, 'completed')}
+            className="flex-1 bg-green-500 hover:bg-green-600 text-white text-xs sm:text-sm font-medium py-2 px-2 sm:px-3 rounded-lg transition-colors flex items-center justify-center space-x-1"
+          >
+            <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+            <span>Complete</span>
+          </button>
+          <button
+            onClick={() => onStatusUpdate(booking.id, 'cancelled')}
+            className="flex-1 bg-red-500 hover:bg-red-600 text-white text-xs sm:text-sm font-medium py-2 px-2 sm:px-3 rounded-lg transition-colors flex items-center justify-center space-x-1"
+          >
+            <XCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+            <span>Cancel</span>
+          </button>
+        </div>
+      )}
+
+      {/* Status Message for completed/cancelled bookings */}
+      {(booking.status === 'cancelled' || booking.status === 'completed') && (
+        <div className={`text-center py-3 px-4 rounded-lg border ${
+          booking.status === 'cancelled' 
+            ? 'bg-red-50 border-red-200' 
+            : 'bg-green-50 border-green-200'
+        }`}>
+          <p className={`text-sm ${
+            booking.status === 'cancelled' 
+              ? 'text-red-700' 
+              : 'text-green-700'
+          }`}>
+            {booking.status === 'cancelled' ? 'This booking has been cancelled' : 'This booking has been completed'}
+          </p>
+          <p className={`text-xs mt-1 ${
+            booking.status === 'cancelled' 
+              ? 'text-red-500' 
+              : 'text-green-500'
+          }`}>
+            No further actions available
+          </p>
+        </div>
+      )}
     </div>
   );
 }

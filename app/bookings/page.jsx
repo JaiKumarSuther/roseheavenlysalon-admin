@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import toast from 'react-hot-toast';
 import useAuthStore from '../../lib/auth-store';
 import { bookingsAPI } from '../../lib/api';
 import AuthMiddleware from '../../components/AuthMiddleware.jsx';
 import Sidebar from '../../components/Sidebar.jsx';
 import BookingCard from '../../components/BookingCard.jsx';
-import { Search, RefreshCw, Filter, Calendar, Clock, ChevronLeft, ChevronRight, Calendar as CalendarIcon } from 'lucide-react';
+import { Search, RefreshCw, Filter, Calendar, Clock, ChevronLeft, ChevronRight, Calendar as CalendarIcon, CheckCircle } from 'lucide-react';
 
 export default function BookingsPage() {
   const [bookings, setBookings] = useState([]);
@@ -60,14 +61,14 @@ export default function BookingsPage() {
     try {
       let response;
       switch (action) {
-        case 'done':
+        case 'completed':
           response = await bookingsAPI.markDone(bookingId);
           break;
         case 'cancelled':
           response = await bookingsAPI.markCancelled(bookingId);
           break;
-        case 'rescheduled':
-          response = await bookingsAPI.markRescheduled(bookingId);
+        case 'confirmed':
+          response = await bookingsAPI.markConfirmed(bookingId);
           break;
         default:
           return;
@@ -91,19 +92,22 @@ export default function BookingsPage() {
   const getFilteredBookings = () => {
     if (filter === 'all') return bookings;
     return bookings.filter(booking => {
-      if (filter === 'pending') return !booking.remarks || booking.remarks === '';
-      return booking.remarks === filter;
+      if (filter === 'pending') return booking.status === 'pending';
+      if (filter === 'completed') return booking.status === 'completed';
+      if (filter === 'cancelled') return booking.status === 'cancelled';
+      if (filter === 'confirmed') return booking.status === 'confirmed';
+      return false;
     });
   };
 
   const getStats = () => {
     const total = bookings.length;
-    const completed = bookings.filter(b => b.remarks === 'done').length;
-    const cancelled = bookings.filter(b => b.remarks === 'cancelled').length;
-    const rescheduled = bookings.filter(b => b.remarks === 'rescheduled').length;
-    const pending = total - completed - cancelled - rescheduled;
+    const completed = bookings.filter(b => b.status === 'completed').length;
+    const cancelled = bookings.filter(b => b.status === 'cancelled').length;
+    const pending = bookings.filter(b => b.status === 'pending').length;
+    const confirmed = bookings.filter(b => b.status === 'confirmed').length;
 
-    return { total, completed, cancelled, rescheduled, pending };
+    return { total, completed, cancelled, confirmed, pending };
   };
 
   const filteredBookings = getFilteredBookings();
@@ -160,6 +164,17 @@ export default function BookingsPage() {
               <div className="card p-4">
                 <div className="flex items-center justify-between">
                   <div>
+                    <p className="text-sm font-medium text-gray-600">Confirmed</p>
+                    <p className="text-2xl font-bold text-gray-900">{stats.confirmed}</p>
+                  </div>
+                  <div className="p-2 bg-blue-500 rounded-full">
+                    <CheckCircle className="h-4 w-4 text-white" />
+                  </div>
+                </div>
+              </div>
+              <div className="card p-4">
+                <div className="flex items-center justify-between">
+                  <div>
                     <p className="text-sm font-medium text-gray-600">Completed</p>
                     <p className="text-2xl font-bold text-gray-900">{stats.completed}</p>
                   </div>
@@ -175,17 +190,6 @@ export default function BookingsPage() {
                     <p className="text-2xl font-bold text-gray-900">{stats.cancelled}</p>
                   </div>
                   <div className="p-2 bg-red-500 rounded-full">
-                    <Calendar className="h-4 w-4 text-white" />
-                  </div>
-                </div>
-              </div>
-              <div className="card p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-gray-600">Rescheduled</p>
-                    <p className="text-2xl font-bold text-gray-900">{stats.rescheduled}</p>
-                  </div>
-                  <div className="p-2 bg-orange-500 rounded-full">
                     <Calendar className="h-4 w-4 text-white" />
                   </div>
                 </div>
@@ -218,9 +222,9 @@ export default function BookingsPage() {
                     >
                       <option value="all">All Bookings</option>
                       <option value="pending">Pending</option>
-                      <option value="done">Completed</option>
+                      <option value="confirmed">Confirmed</option>
+                      <option value="completed">Completed</option>
                       <option value="cancelled">Cancelled</option>
-                      <option value="rescheduled">Rescheduled</option>
                     </select>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -282,7 +286,14 @@ export default function BookingsPage() {
               ) : (
                 <div className="text-center py-12">
                   <CalendarIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500">Calendar view coming soon...</p>
+                  <p className="text-gray-500 mb-4">Calendar view is now available in the dedicated Calendar page!</p>
+                  <Link
+                    href="/calendar"
+                    className="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                  >
+                    <CalendarIcon className="h-4 w-4 mr-2" />
+                    Go to Calendar
+                  </Link>
                 </div>
               )}
             </div>

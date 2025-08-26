@@ -37,8 +37,8 @@ export default function DashboardStats({ stats, isLoading = false }) {
       bgColor: 'bg-red-50'
     },
     {
-      title: 'Rescheduled',
-      value: stats?.rescheduledBookings || 0,
+      title: 'Confirmed',
+      value: stats?.confirmedBookings || 0,
       icon: RefreshCw,
       color: 'bg-yellow-500',
       textColor: 'text-yellow-500',
@@ -59,21 +59,13 @@ export default function DashboardStats({ stats, isLoading = false }) {
       color: 'bg-indigo-500',
       textColor: 'text-indigo-500',
       bgColor: 'bg-indigo-50'
-    },
-    {
-      title: 'Avg Rating',
-      value: stats?.averageRating ? `${stats.averageRating}/5.0` : 'N/A',
-      icon: TrendingUp,
-      color: 'bg-pink-500',
-      textColor: 'text-pink-500',
-      bgColor: 'bg-pink-50'
     }
   ];
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-3 sm:gap-4 mb-6 sm:mb-8">
-        {Array.from({ length: 8 }).map((_, index) => (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 sm:gap-4 mb-6 sm:mb-8">
+        {Array.from({ length: 7 }).map((_, index) => (
           <div key={index} className="card p-3 sm:p-4 animate-pulse">
             <div className="flex items-center justify-between">
               <div className="flex-1">
@@ -89,7 +81,7 @@ export default function DashboardStats({ stats, isLoading = false }) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-8 gap-3 sm:gap-4 mb-6 sm:mb-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-7 gap-3 sm:gap-4 mb-6 sm:mb-8">
       {statCards.map((stat, index) => {
         const IconComponent = stat.icon;
         return (

@@ -7,7 +7,7 @@ import useAuthStore from '../../lib/auth-store';
 import { usersAPI } from '../../lib/api';
 import AuthMiddleware from '../../components/AuthMiddleware.jsx';
 import Sidebar from '../../components/Sidebar.jsx';
-import { Search, RefreshCw, User, Mail, Phone, Calendar, Shield, Eye, Edit, Trash2, CheckCircle, XCircle } from 'lucide-react';
+import { Search, RefreshCw, User, Mail, Phone, Calendar, Shield, Eye, Trash2, CheckCircle, XCircle } from 'lucide-react';
 
 export default function UsersPage() {
   const [users, setUsers] = useState([]);
@@ -278,22 +278,15 @@ export default function UsersPage() {
                               <div className="flex items-center space-x-2">
                                 <button
                                   onClick={() => router.push(`/users/${user.id}`)}
-                                  className="text-blue-600 hover:text-blue-900"
+                                  className="text-blue-600 hover:text-blue-900 transition-colors"
                                   title="View Details"
                                 >
                                   <Eye className="h-4 w-4" />
                                 </button>
-                                <button
-                                  onClick={() => router.push(`/users/${user.id}/edit`)}
-                                  className="text-green-600 hover:text-green-900"
-                                  title="Edit User"
-                                >
-                                  <Edit className="h-4 w-4" />
-                                </button>
                                 {user.user_type !== 'admin' && user.code !== 0 && (
                                   <button
                                     onClick={() => handleVerifyUser(user.id)}
-                                    className="text-green-600 hover:text-green-900"
+                                    className="text-green-600 hover:text-green-900 transition-colors"
                                     title="Verify User"
                                   >
                                     <CheckCircle className="h-4 w-4" />
@@ -302,7 +295,7 @@ export default function UsersPage() {
                                 {user.user_type !== 'admin' && (
                                   <button
                                     onClick={() => handleDeleteUser(user.id)}
-                                    className="text-red-600 hover:text-red-900"
+                                    className="text-red-600 hover:text-red-900 transition-colors"
                                     title="Delete User"
                                   >
                                     <Trash2 className="h-4 w-4" />

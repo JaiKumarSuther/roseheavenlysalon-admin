@@ -21,7 +21,7 @@ export default function LoginPage() {
   useEffect(() => {
     // Only redirect if initialized and authenticated
     if (isInitialized && isAuthenticated) {
-      router.push('/dashboard');
+      router.push('/analytics');
     }
   }, [isAuthenticated, isInitialized, router]);
 
@@ -29,7 +29,7 @@ export default function LoginPage() {
     try {
       await login(data);
       toast.success('Login successful!');
-      router.push('/dashboard');
+      router.push('/analytics');
     } catch (error) {
       toast.error(error.message || 'Login failed');
     }

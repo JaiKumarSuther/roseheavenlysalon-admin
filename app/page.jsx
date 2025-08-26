@@ -17,7 +17,7 @@ export default function HomePage() {
     // Only redirect after initialization is complete
     if (isInitialized) {
       if (isAuthenticated) {
-        router.push('/dashboard');
+        router.push('/analytics');
       } else {
         router.push('/login');
       }

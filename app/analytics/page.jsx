@@ -141,7 +141,7 @@ export default function AnalyticsPage() {
             ) : (
               <>
                 {/* Overview Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                   <div className="card p-6">
                     <div className="flex items-center justify-between">
                       <div>
@@ -183,18 +183,6 @@ export default function AnalyticsPage() {
                       </div>
                     </div>
                   </div>
-
-                  <div className="card p-6">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-gray-600">Average Rating</p>
-                        <p className="text-2xl font-bold text-gray-900">{analytics.overview?.averageRating || 0}</p>
-                      </div>
-                      <div className="p-3 bg-yellow-500 rounded-full">
-                        <BarChart3 className="h-6 w-6 text-white" />
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
                 {/* Charts Section */}
@@ -205,24 +193,24 @@ export default function AnalyticsPage() {
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
-                          <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+                          <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
                           <span className="text-sm text-gray-700">Completed</span>
                         </div>
                         <span className="text-sm font-medium text-gray-900">{analytics.bookings?.completed || 0}</span>
                       </div>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
-                          <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-                          <span className="text-sm text-gray-700">Pending</span>
+                          <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+                          <span className="text-sm text-gray-700">Confirmed</span>
                         </div>
-                        <span className="text-sm font-medium text-gray-900">{analytics.bookings?.pending || 0}</span>
+                        <span className="text-sm font-medium text-gray-900">{analytics.bookings?.confirmed || 0}</span>
                       </div>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
                           <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
-                          <span className="text-sm text-gray-700">Rescheduled</span>
+                          <span className="text-sm text-gray-700">Pending</span>
                         </div>
-                        <span className="text-sm font-medium text-gray-900">{analytics.bookings?.rescheduled || 0}</span>
+                        <span className="text-sm font-medium text-gray-900">{analytics.bookings?.pending || 0}</span>
                       </div>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
@@ -249,10 +237,6 @@ export default function AnalyticsPage() {
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-700">Avg. Visit Frequency</span>
                         <span className="text-sm font-medium text-gray-900">{analytics.customerInsights?.averageVisitFrequency || 0}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-700">Customer Satisfaction</span>
-                        <span className="text-sm font-medium text-gray-900">{analytics.customerInsights?.customerSatisfaction || 0}/5</span>
                       </div>
                     </div>
                   </div>
