@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import useAuthStore from '../../lib/auth-store';
 import { Eye, EyeOff, Lock, Mail } from 'lucide-react';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -87,7 +88,7 @@ export default function LoginPage() {
                       message: 'Please enter a valid email address'
                     }
                   })}
-                  className="input-field pl-10"
+                  className="input-field"
                   placeholder="Enter your email address"
                 />
               </div>
@@ -108,7 +109,7 @@ export default function LoginPage() {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   {...register('password', { required: 'Password is required' })}
-                  className="input-field pl-10 pr-10"
+                  className="input-field pr-10"
                   placeholder="Enter your password"
                 />
                 <button
@@ -140,6 +141,16 @@ export default function LoginPage() {
               )}
             </button>
           </form>
+
+          {/* Signup Link */}
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-600">
+              Don't have an admin account?{' '}
+              <Link href="/signup" className="text-blue-600 hover:text-blue-800 font-medium">
+                Create one here
+              </Link>
+            </p>
+          </div>
         </div>
 
         <div className="text-center">

@@ -197,28 +197,28 @@ export default function BookingsPage() {
             </div>
 
             {/* Search and Filter Section */}
-            <div className="card p-6 mb-8">
-              <div className="flex flex-col md:flex-row gap-4">
-                <div className="flex-1">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <input
-                      type="text"
-                      placeholder="Search by customer name..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                      className="input-field pl-10"
-                    />
-                  </div>
+            <div className="card p-4 sm:p-6 mb-8">
+              <div className="space-y-4">
+                {/* Search Input */}
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search by customer name..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                    className="input-field  w-full"
+                  />
                 </div>
-                <div className="flex items-center space-x-4">
+                
+                {/* Filter and View Controls */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  {/* Filter Dropdown */}
                   <div className="flex items-center space-x-2">
-                    <Filter className="h-4 w-4 text-gray-400" />
                     <select
                       value={filter}
                       onChange={(e) => setFilter(e.target.value)}
-                      className="input-field min-w-[120px]"
+                      className="input-field min-w-[140px]"
                     >
                       <option value="all">All Bookings</option>
                       <option value="pending">Pending</option>
@@ -227,26 +227,47 @@ export default function BookingsPage() {
                       <option value="cancelled">Cancelled</option>
                     </select>
                   </div>
+                  
+                  {/* View Mode Toggle */}
                   <div className="flex items-center space-x-2">
                     <button
                       onClick={() => setViewMode('list')}
-                      className={`p-2 rounded-lg ${viewMode === 'list' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-600'}`}
+                      className={`p-2 rounded-lg transition-colors ${
+                        viewMode === 'list' 
+                          ? 'bg-blue-500 text-white' 
+                          : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                      }`}
+                      title="List View"
                     >
                       <Calendar className="h-4 w-4" />
                     </button>
                     <button
                       onClick={() => setViewMode('calendar')}
-                      className={`p-2 rounded-lg ${viewMode === 'calendar' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-600'}`}
+                      className={`p-2 rounded-lg transition-colors ${
+                        viewMode === 'calendar' 
+                          ? 'bg-blue-500 text-white' 
+                          : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                      }`}
+                      title="Calendar View"
                     >
                       <CalendarIcon className="h-4 w-4" />
                     </button>
                   </div>
+                  
+                  {/* Search Button */}
                   <button
                     onClick={handleSearch}
                     disabled={isLoading}
-                    className="btn-primary"
+                    className="btn-primary flex-1 sm:flex-none"
                   >
-                    Search
+                    {isLoading ? (
+                      <div className="flex items-center space-x-2">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        <span>Searching...</span>
+                      </div>
+                    ) : (
+                      'Search'
+                    )}
                   </button>
                 </div>
               </div>
